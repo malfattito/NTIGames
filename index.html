@@ -1,46 +1,465 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NTI Games</title>
+<meta name="description" content="NTI Games: grupo de desenvolvimento de jogos estilo indie do curso de Engenharia de Software do Centro Universitário Católica do Tocantins. Jogos para educação, saúde e outras áreas, feitos para divertir.">
+<meta property="og:title" content="NTI Games">
+<meta property="og:description" content="Jogos estilo indie para educação, saúde e outras áreas, feitos para divertir. Engenharia de Software, Centro Universitário Católica do Tocantins.">
+<meta property="og:image" content="https://malfattito.github.io/NTIGames/media/logo/logo.png">
+<meta property="og:url" content="https://malfattito.github.io/NTIGames/">
+<link rel="icon" type="image/png" href="media/logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ink: #0b1016;
+    --ink-2: #111923;
+    --ink-3: #182331;
+    --line: #243244;
+    --text: #e8eef5;
+    --text-dim: #9fb0c3;
+    --cyan: #5fc3f0;
+    --cyan-deep: #2a9bd0;
+    --square: #3b5bdb;
+    --cross: #e5484d;
+    --triangle: #30c66c;
+    --circle: #f5c518;
+    --radius: 14px;
+    --maxw: 1120px;
+    --display: "Chakra Petch", "Trebuchet MS", sans-serif;
+    --body: "Manrope", "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 3px solid var(--circle); outline-offset: 3px; border-radius: 4px; }
+  img, video { max-width: 100%; display: block; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; text-wrap: balance; }
+  h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 700; }
+  h3 { font-size: 1.2rem; font-weight: 600; }
+  p { margin: 0; }
+  .wrap { width: min(var(--maxw), 100% - 2.5rem); margin-inline: auto; }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    background: var(--cyan);
+    display: inline-block;
+    border-radius: 2px;
+    flex: none;
+  }
+  .eyebrow.tri::before { background: none; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 11px solid var(--triangle); border-radius: 0; }
+  .eyebrow.circ::before { border-radius: 50%; background: var(--circle); }
+  .eyebrow.cross::before { background: var(--cross); transform: rotate(45deg); }
+  .eyebrow.sq::before { background: var(--square); }
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+  /* Top bar */
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(11, 16, 22, 0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 64px; }
+  .brand { display: flex; align-items: center; gap: 0.7rem; color: var(--text); font-family: var(--display); font-weight: 700; letter-spacing: 0.04em; }
+  .brand img { width: 36px; height: 36px; border-radius: 50%; }
+  .brand:hover { text-decoration: none; }
+  nav ul { list-style: none; display: flex; gap: 1.4rem; margin: 0; padding: 0; }
+  nav a { color: var(--text-dim); font-weight: 600; font-size: 0.95rem; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 720px) { nav { display: none; } }
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  /* Hero */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 7vw, 5rem);
+    background:
+      radial-gradient(60% 50% at 80% 10%, rgba(95, 195, 240, 0.16), transparent 70%),
+      radial-gradient(40% 40% at 10% 90%, rgba(59, 91, 219, 0.18), transparent 70%),
+      var(--ink);
+  }
+  .hero .grid-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(95,195,240,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(95,195,240,0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 85%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 85%);
+  }
+  .hero .wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 800px) { .hero .wrap { grid-template-columns: 1fr; } .hero-logo { order: -1; justify-self: center; } }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin: 0.6rem 0 1rem;
+  }
+  .hero h1 span { color: var(--cyan); }
+  .hero .lead { font-size: clamp(1.05rem, 1.6vw, 1.3rem); color: var(--text-dim); max-width: 34rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.3rem;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--line);
+    color: var(--text);
+    background: var(--ink-2);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-2px); background: var(--ink-3); }
+  .btn.primary { background: var(--cyan); color: #06202e; border-color: var(--cyan); }
+  .btn.primary:hover { background: #7dd1f5; }
+  .hero-logo { position: relative; width: min(320px, 70vw); }
+  .hero-logo img { width: 100%; border-radius: 50%; box-shadow: 0 0 0 1px var(--line), 0 0 80px rgba(95,195,240,0.25); }
+  .hero-logo .shapes { position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; padding: 8px 14px; background: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; }
+  .shape { width: 14px; height: 14px; display: inline-block; }
+  .shape.sq { background: var(--square); border-radius: 2px; }
+  .shape.cross { position: relative; }
+  .shape.cross::before, .shape.cross::after { content: ""; position: absolute; left: 6px; top: 0; width: 3px; height: 14px; background: var(--cross); border-radius: 2px; }
+  .shape.cross::before { transform: rotate(45deg); } .shape.cross::after { transform: rotate(-45deg); }
+  .shape.tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 14px solid var(--triangle); }
+  .shape.circ { background: var(--circle); border-radius: 50%; }
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/NTIGames/">
+  /* Sections */
+  section { padding: clamp(3rem, 7vw, 5.5rem) 0; border-top: 1px solid var(--line); }
+  .section-head { display: grid; gap: 0.7rem; max-width: 46rem; margin-bottom: 2.2rem; }
+  .section-head p { color: var(--text-dim); }
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+  @media (max-width: 720px) { .facts { grid-template-columns: 1fr; } }
+  .fact { padding: 1.3rem 1.4rem; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 0.4rem; align-content: start; }
+  .fact strong { font-family: var(--display); font-size: 1.05rem; color: var(--text); }
+  .fact p { color: var(--text-dim); font-size: 0.98rem; }
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="dgames2d_example">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  /* Tech */
+  .tech { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  @media (max-width: 860px) { .tech { grid-template-columns: 1fr; } }
+  .tech-card {
+    position: relative;
+    padding: 1.6rem 1.5rem 1.5rem;
+    background: linear-gradient(180deg, var(--ink-2), var(--ink));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display: grid; gap: 0.8rem; align-content: start;
+  }
+  .tech-card::before { content: ""; position: absolute; left: 1.5rem; right: 1.5rem; top: 0; height: 3px; background: var(--accent); border-radius: 0 0 3px 3px; }
+  .tech-card .tag { font-family: var(--display); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .tech-card p { color: var(--text-dim); font-size: 0.98rem; }
+  .tech-card .more { font-weight: 600; }
+  .tech-card ul { margin: 0; padding-left: 1.1rem; color: var(--text-dim); font-size: 0.95rem; display: grid; gap: 0.25rem; }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  /* Projects */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  @media (max-width: 760px) { .projects { grid-template-columns: 1fr; } }
+  .project { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+  .project .frame { position: relative; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
+  .project video { width: 100%; height: 100%; object-fit: contain; }
+  .project .caption { padding: 1rem 1.2rem 1.2rem; display: grid; gap: 0.3rem; align-content: start; }
+  .project .caption h3 { font-size: 1.05rem; }
+  .project .caption p { color: var(--text-dim); font-size: 0.95rem; }
+  .project .caption .meta { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 
-  <title>dgames2d_example</title>
-  <link rel="manifest" href="manifest.json">
+  /* Team */
+  .coordinator {
+    display: grid; grid-template-columns: 160px 1fr; gap: 1.6rem; align-items: center;
+    padding: 1.5rem; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 600px) { .coordinator { grid-template-columns: 1fr; text-align: center; justify-items: center; } }
+  .avatar { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 3px solid var(--ink-3); box-shadow: 0 0 0 2px var(--cyan-deep); }
+  .coordinator .avatar { width: 160px; }
+  .coordinator h3 { font-size: 1.5rem; margin: 0.3rem 0 0.5rem; }
+  .coordinator p { color: var(--text-dim); }
+  .role { font-family: var(--display); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); }
+  .team { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2rem; }
+  @media (max-width: 960px) { .team { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .team { grid-template-columns: repeat(2, 1fr); } }
+  .member { display: grid; gap: 0.6rem; justify-items: center; align-content: start; text-align: center; }
+  .member .avatar { width: min(100%, 150px); box-shadow: 0 0 0 2px var(--line); }
+  .member h3 { font-size: 0.98rem; font-family: var(--body); font-weight: 700; }
+  .member p { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: start; }
+  @media (max-width: 800px) { .contact { grid-template-columns: 1fr; } }
+  .contact .section-head { margin-bottom: 0; }
+  .contact-card { padding: 1.5rem; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 0.6rem; }
+  .contact-card a.email { font-family: var(--display); font-size: 1.05rem; word-break: break-all; }
+  .contact-card p { color: var(--text-dim); font-size: 0.98rem; }
+
+  footer { border-top: 1px solid var(--line); padding: 2rem 0 2.5rem; color: var(--text-dim); font-size: 0.9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 0.8rem 2rem; justify-content: space-between; align-items: center; }
+  footer .shapes { display: flex; gap: 8px; }
+</style>
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
 
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
-  <script src="flutter_bootstrap.js" async></script>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><img src="media/logo/logo.png" alt="" width="36" height="36">NTI Games</a>
+    <nav aria-label="Seções">
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#tecnologias">Tecnologias</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio" style="border-top: 0">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Engenharia de Software · UniCatólica Tocantins</p>
+        <h1>Jogos indie feitos para <span>divertir</span>.</h1>
+        <p class="lead">O NTI Games é um grupo de desenvolvimento de jogos do Centro Universitário Católica do Tocantins. Criamos games no estilo indie para educação, saúde e outras áreas, sem esquecer o que faz um jogo valer a pena: ser divertido de jogar.</p>
+        <div class="cta">
+          <a class="btn primary" href="flutter-games/">Jogar o sample Flutter</a>
+          <a class="btn" href="#projetos">Ver os projetos</a>
+        </div>
+      </div>
+      <div class="hero-logo">
+        <img src="media/logo/logo.png" alt="Logo UniCatólica Games" width="313" height="314">
+        <div class="shapes" aria-hidden="true"><span class="shape sq"></span><span class="shape cross"></span><span class="shape tri"></span><span class="shape circ"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow sq">Sobre o grupo</p>
+        <h2>Diversão primeiro, propósito junto.</h2>
+        <p>Jogos educacionais e de saúde costumam ser feitos de trás para frente: primeiro o conteúdo, depois, se sobrar tempo, a diversão. No NTI Games fazemos o caminho inverso. Cada projeto nasce como um jogo que queremos jogar, e o objetivo de aprendizado ou de cuidado entra na mecânica, não em cima dela.</p>
+      </div>
+      <div class="facts">
+        <div class="fact">
+          <strong>Estilo indie</strong>
+          <p>Equipes pequenas, ciclos curtos e liberdade para experimentar. Arte em pixel, cenários isométricos, top-down e plataforma: o que a ideia pedir.</p>
+        </div>
+        <div class="fact">
+          <strong>Educação, saúde e além</strong>
+          <p>Jogos que ensinam sem parecer aula, apoiam tratamentos e reabilitação, ou simplesmente aproximam tecnologia de quem nunca programou.</p>
+        </div>
+        <div class="fact">
+          <strong>Formação na prática</strong>
+          <p>Os acadêmicos de Engenharia de Software passam por todo o ciclo: motor, ferramentas, arte, testes e publicação em web, desktop, celular e TV.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tecnologias">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow tri">Tecnologias</p>
+        <h2>Três gerações de um mesmo modelo de cena.</h2>
+        <p>O grupo desenvolve os próprios motores de jogo. A ideia central se manteve ao longo dos anos: cenas com sprites, camadas de tiles e texto, um loop de jogo e o mesmo jeito de pensar um game, reimplementado em linguagens e plataformas diferentes.</p>
+      </div>
+      <div class="tech">
+        <article class="tech-card" style="--accent: var(--cross)">
+          <span class="tag">Java 2D Desktop Games</span>
+          <h3>JGames2D</h3>
+          <p>Motor 2D em Java para jogos de desktop, com editor de mapas e fases por imagem indexada. É onde o modelo de cena nasceu e onde muitos integrantes fazem o primeiro jogo.</p>
+          <ul>
+            <li>Sprites, camadas de tiles e colisão por caixa</li>
+            <li>Scroll vertical e horizontal</li>
+            <li>Editor de fases usado em sala</li>
+          </ul>
+        </article>
+        <article class="tech-card" style="--accent: var(--circle)">
+          <span class="tag">Swift Games</span>
+          <h3>SGames2D e jogos 3D</h3>
+          <p>Segunda geração do modelo, em Swift, para o ecossistema Apple. Inclui experimentos com jogos 3D em que o celular vira o controle, conectado ao jogo que roda no computador ou na TV.</p>
+          <ul>
+            <li>Cenas 2D em Swift</li>
+            <li>Jogos 3D controlados pelo celular</li>
+            <li>Apple TV no radar</li>
+          </ul>
+        </article>
+        <article class="tech-card" style="--accent: var(--cyan)">
+          <span class="tag">Dart &amp; Flutter Games</span>
+          <h3>DGames2D</h3>
+          <p>Terceira geração, em Dart puro com host Flutter, pensada para Web em WebAssembly e Android TV: loop de passo fixo, renderização em lote, projeções ortogonal, isométrica e top-down, controle remoto e gamepad.</p>
+          <ul>
+            <li>Scroll vertical e horizontal, isométrico, top-down</li>
+            <li>Roda no navegador e na TV</li>
+            <li>Motor e exemplos com testes automatizados</li>
+          </ul>
+          <a class="more" href="flutter-games/">Abrir o sample Flutter Games →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow circ">Projetos</p>
+        <h2>O que está saindo do laboratório.</h2>
+        <p>Registros de trabalho dos integrantes: fases sendo montadas no editor de mapas dos jogos 2D e testes dos jogos 3D em que os celulares fazem o papel de controle.</p>
+      </div>
+      <div class="projects">
+        <article class="project" style="--accent: var(--cross)">
+          <div class="frame">
+            <video controls preload="none" poster="media/projetos/projeto-2.jpg" playsinline>
+              <source src="media/projetos/projeto-2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="caption">
+            <span class="meta">Java 2D · Editor de fases</span>
+            <h3>Montando uma fase no editor de mapas</h3>
+            <p>Praia, mar e prédios sendo pintados tile a tile no editor dos jogos 2D de desktop.</p>
+          </div>
+        </article>
+        <article class="project" style="--accent: var(--cross)">
+          <div class="frame">
+            <video controls preload="none" poster="media/projetos/projeto-1.jpg" playsinline>
+              <source src="media/projetos/projeto-1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="caption">
+            <span class="meta">Java 2D · Cidade</span>
+            <h3>Uma cidade inteira em quarteirões</h3>
+            <p>Ruas, quadras e telhados de uma fase top-down no laboratório de Engenharia de Software.</p>
+          </div>
+        </article>
+        <article class="project" style="--accent: var(--circle)">
+          <div class="frame">
+            <video controls preload="none" poster="media/projetos/projeto-3.jpg" playsinline>
+              <source src="media/projetos/projeto-3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="caption">
+            <span class="meta">3D · Celular como controle</span>
+            <h3>Dois celulares, um jogo</h3>
+            <p>Teste no laboratório: o jogo 3D roda no notebook e cada jogador controla o seu personagem pelo próprio celular.</p>
+          </div>
+        </article>
+        <article class="project" style="--accent: var(--circle)">
+          <div class="frame">
+            <video controls preload="none" poster="media/projetos/projeto-4.jpg" playsinline>
+              <source src="media/projetos/projeto-4.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="caption">
+            <span class="meta">3D · Simuladores e editor</span>
+            <h3>Controles virtuais e o cenário 3D</h3>
+            <p>Três simuladores de celular ligados à mesma sala 3D, ao lado do editor de cenários usado para desenhar as fases.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="equipe">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow cross">Equipe</p>
+        <h2>Quem faz o NTI Games.</h2>
+        <p>Um coordenador e acadêmicos do curso de Engenharia de Software do Centro Universitário Católica do Tocantins.</p>
+      </div>
+      <article class="coordinator">
+        <img class="avatar" src="media/equipe/silvano-maneck-malfatti.jpg" alt="Foto de Silvano Maneck Malfatti" width="160" height="160">
+        <div>
+          <p class="role">Coordenador do projeto</p>
+          <h3>Silvano Maneck Malfatti</h3>
+          <p>Professor do curso de Engenharia de Software e autor dos motores JGames2D, SGames2D e DGames2D. Coordena os projetos, define a arquitetura dos motores e orienta os acadêmicos do laboratório de jogos.</p>
+        </div>
+      </article>
+      <div class="team">
+        <article class="member">
+          <img class="avatar" src="media/equipe/breno-da-silva-brito.jpg" alt="Foto de Breno da Silva Brito" width="150" height="150">
+          <h3>Breno da Silva Brito</h3>
+          <p>Acadêmico de Engenharia de Software</p>
+        </article>
+        <article class="member">
+          <img class="avatar" src="media/equipe/bruna-laisa-souza-leao-de-andrada-oliveira.jpg" alt="Foto de Bruna Laísa Souza Leão de Andrada Oliveira" width="150" height="150">
+          <h3>Bruna Laísa Souza Leão de Andrada Oliveira</h3>
+          <p>Acadêmica de Engenharia de Software</p>
+        </article>
+        <article class="member">
+          <img class="avatar" src="media/equipe/emanuel-borges-moraes.jpg" alt="Foto de Emanuel Borges Moraes" width="150" height="150">
+          <h3>Emanuel Borges Moraes</h3>
+          <p>Acadêmico de Engenharia de Software</p>
+        </article>
+        <article class="member">
+          <img class="avatar" src="media/equipe/emanuel-perin-verissimo.jpg" alt="Foto de Emanuel Perin Veríssimo" width="150" height="150">
+          <h3>Emanuel Perin Veríssimo</h3>
+          <p>Acadêmico de Engenharia de Software</p>
+        </article>
+        <article class="member">
+          <img class="avatar" src="media/equipe/lucas-borges-sousa.jpg" alt="Foto de Lucas Borges Sousa" width="150" height="150">
+          <h3>Lucas Borges Sousa</h3>
+          <p>Acadêmico de Engenharia de Software</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap contact">
+      <div class="section-head">
+        <p class="eyebrow">Contato</p>
+        <h2>Quer jogar, testar ou participar?</h2>
+        <p>Escolas, clínicas e projetos sociais interessados em um jogo com propósito, e acadêmicos que queiram entrar no grupo: escreva para a coordenação.</p>
+      </div>
+      <div class="contact-card">
+        <p class="role">E-mail</p>
+        <a class="email" href="mailto:silvano.malfatti@p.catolica-to.edu.br">silvano.malfatti@p.catolica-to.edu.br</a>
+        <p>Silvano Maneck Malfatti · Centro Universitário Católica do Tocantins, Palmas, TO.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>NTI Games · Engenharia de Software · Centro Universitário Católica do Tocantins</span>
+    <span class="shapes" aria-hidden="true"><span class="shape sq"></span><span class="shape cross"></span><span class="shape tri"></span><span class="shape circ"></span></span>
+  </div>
+</footer>
+
 </body>
 </html>
