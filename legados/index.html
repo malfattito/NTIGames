@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projetos Legados · NTI Games</title>
+<meta name="description" content="Projetos legados do NTI Games (2010 a 2017): jogos controlados por celular via Bluetooth com a arquitetura BlueWave, realidade virtual com Kinect, automação doméstica em 3D e as mostras da disciplina de Computação Gráfica.">
+<meta property="og:title" content="Projetos Legados · NTI Games">
+<meta property="og:description" content="De 2010 a 2017: jogos controlados por celular, realidade virtual com Kinect, automação doméstica em 3D e as mostras de Computação Gráfica.">
+<meta property="og:image" content="https://malfattito.github.io/NTIGames/media/logo/logo.png">
+<meta property="og:url" content="https://malfattito.github.io/NTIGames/legados/">
+<link rel="icon" type="image/png" href="../media/logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ink: #0b1016;
+    --ink-2: #111923;
+    --ink-3: #182331;
+    --line: #243244;
+    --text: #e8eef5;
+    --text-dim: #9fb0c3;
+    --cyan: #5fc3f0;
+    --cyan-deep: #2a9bd0;
+    --square: #3b5bdb;
+    --cross: #e5484d;
+    --triangle: #30c66c;
+    --circle: #f5c518;
+    --radius: 14px;
+    --maxw: 1120px;
+    --display: "Chakra Petch", "Trebuchet MS", sans-serif;
+    --body: "Manrope", "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 3px solid var(--circle); outline-offset: 3px; border-radius: 4px; }
+  img, video, iframe { max-width: 100%; display: block; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; text-wrap: balance; }
+  h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 700; }
+  h3 { font-size: 1.2rem; font-weight: 600; }
+  p { margin: 0; }
+  .wrap { width: min(var(--maxw), 100% - 2.5rem); margin-inline: auto; }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    background: var(--cyan);
+    display: inline-block;
+    border-radius: 2px;
+    flex: none;
+  }
+  .eyebrow.tri::before { background: none; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 11px solid var(--triangle); border-radius: 0; }
+  .eyebrow.circ::before { border-radius: 50%; background: var(--circle); }
+  .eyebrow.cross::before { background: var(--cross); transform: rotate(45deg); }
+  .eyebrow.sq::before { background: var(--square); }
+
+  /* Top bar */
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(11, 16, 22, 0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 64px; }
+  .brand { display: flex; align-items: center; gap: 0.7rem; color: var(--text); font-family: var(--display); font-weight: 700; letter-spacing: 0.04em; }
+  .brand img { width: 36px; height: 36px; border-radius: 50%; }
+  .brand:hover { text-decoration: none; }
+  nav ul { list-style: none; display: flex; gap: 1.4rem; margin: 0; padding: 0; }
+  nav a { color: var(--text-dim); font-weight: 600; font-size: 0.95rem; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  nav a[aria-current="page"] { color: var(--text); }
+  @media (max-width: 720px) { nav { display: none; } }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.3rem;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--line);
+    color: var(--text);
+    background: var(--ink-2);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-2px); background: var(--ink-3); }
+
+  /* Page hero */
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem);
+    background:
+      radial-gradient(60% 50% at 80% 10%, rgba(245, 197, 24, 0.12), transparent 70%),
+      radial-gradient(40% 40% at 10% 90%, rgba(59, 91, 219, 0.18), transparent 70%),
+      var(--ink);
+  }
+  .page-hero .grid-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(95,195,240,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(95,195,240,0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 85%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 85%);
+  }
+  .page-hero .wrap { position: relative; display: grid; gap: 0.9rem; justify-items: start; }
+  .page-hero h1, .page-hero .lead { max-width: 52rem; }
+  .page-hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 700; letter-spacing: 0.01em; }
+  .page-hero h1 span { color: var(--circle); }
+  .page-hero .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--text-dim); }
+  .crumb { font-size: 0.9rem; color: var(--text-dim); }
+  .crumb a { color: var(--text-dim); }
+  .crumb a:hover { color: var(--text); }
+
+  .years { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+  .years a {
+    font-family: var(--display); font-size: 0.85rem; letter-spacing: 0.08em;
+    padding: 0.35rem 0.8rem; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--ink-2); color: var(--text-dim);
+  }
+  .years a:hover { color: var(--text); text-decoration: none; background: var(--ink-3); }
+
+  /* Timeline of legacy projects */
+  section { padding: clamp(3rem, 7vw, 5.5rem) 0; border-top: 1px solid var(--line); }
+  .section-head { display: grid; gap: 0.7rem; max-width: 46rem; margin-bottom: 2.2rem; }
+  .section-head p { color: var(--text-dim); }
+
+  .legacy { display: grid; gap: clamp(1.6rem, 3vw, 2.4rem); }
+  .legacy-item {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(1.2rem, 2.5vw, 2rem);
+    align-items: start;
+    padding: clamp(1.1rem, 2vw, 1.5rem);
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    scroll-margin-top: 84px;
+    position: relative;
+  }
+  .legacy-item::before { content: ""; position: absolute; left: 1.5rem; right: 1.5rem; top: 0; height: 3px; background: var(--accent); border-radius: 0 0 3px 3px; }
+  @media (max-width: 860px) { .legacy-item { grid-template-columns: 1fr; } }
+  .legacy-item .info { display: grid; gap: 0.7rem; align-content: start; }
+  .legacy-item .meta { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; }
+  .legacy-item .meta .year { color: var(--text); }
+  .legacy-item h3 { font-size: clamp(1.15rem, 2vw, 1.45rem); }
+  .legacy-item p { color: var(--text-dim); font-size: 0.98rem; }
+  .legacy-item .yt { font-size: 0.9rem; font-weight: 600; }
+
+  /* Video facade: poster + play button; the YouTube iframe is only created on click */
+  .frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .play {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    padding: 0; margin: 0; border: 0;
+    background: #000;
+    cursor: pointer;
+    display: grid; place-items: center;
+    color: var(--text);
+    font-family: var(--display);
+  }
+  .play img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.3s ease, opacity 0.2s ease; }
+  .play:hover img { transform: scale(1.03); opacity: 1; }
+  .play .icon {
+    position: relative;
+    width: 68px; height: 68px;
+    border-radius: 50%;
+    background: rgba(11, 16, 22, 0.78);
+    border: 2px solid var(--accent);
+    display: grid; place-items: center;
+    box-shadow: 0 0 0 8px rgba(11, 16, 22, 0.35), 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .play:hover .icon { transform: scale(1.06); background: rgba(11, 16, 22, 0.92); }
+  .play .icon::after { content: ""; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 20px solid var(--accent); margin-left: 5px; }
+  .play .dur {
+    position: absolute; right: 10px; bottom: 10px;
+    font-size: 0.78rem; letter-spacing: 0.08em;
+    padding: 0.2rem 0.55rem; border-radius: 6px;
+    background: rgba(11, 16, 22, 0.85); border: 1px solid var(--line);
+  }
+  .play .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Bridge to the present */
+  .bridge { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center; }
+  @media (max-width: 800px) { .bridge { grid-template-columns: 1fr; } }
+  .bridge .section-head { margin-bottom: 0; }
+  .bridge-card { padding: 1.5rem; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 0.8rem; }
+  .bridge-card p { color: var(--text-dim); font-size: 0.98rem; }
+
+  footer { border-top: 1px solid var(--line); padding: 2rem 0 2.5rem; color: var(--text-dim); font-size: 0.9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 0.8rem 2rem; justify-content: space-between; align-items: center; }
+  footer .shapes { display: flex; gap: 8px; }
+  .shape { width: 14px; height: 14px; display: inline-block; }
+  .shape.sq { background: var(--square); border-radius: 2px; }
+  .shape.cross { position: relative; }
+  .shape.cross::before, .shape.cross::after { content: ""; position: absolute; left: 6px; top: 0; width: 3px; height: 14px; background: var(--cross); border-radius: 2px; }
+  .shape.cross::before { transform: rotate(45deg); } .shape.cross::after { transform: rotate(-45deg); }
+  .shape.tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 14px solid var(--triangle); }
+  .shape.circ { background: var(--circle); border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../media/logo/logo.png" alt="" width="36" height="36">NTI Games</a>
+    <nav aria-label="Seções">
+      <ul>
+        <li><a href="../#sobre">Sobre</a></li>
+        <li><a href="../#tecnologias">Tecnologias</a></li>
+        <li><a href="../#projetos">Projetos</a></li>
+        <li><a href="./" aria-current="page">Projetos Legados</a></li>
+        <li><a href="../#equipe">Equipe</a></li>
+        <li><a href="../#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-hero">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="crumb"><a href="../">Início</a> · Projetos Legados</p>
+      <p class="eyebrow circ">2010 – 2017</p>
+      <h1>Projetos <span>Legados</span>.</h1>
+      <p class="lead">Antes dos motores atuais, o NTI Games já experimentava com jogos controlados por celular, realidade virtual, automação doméstica e as mostras da disciplina de Computação Gráfica. Estes vídeos, publicados ao longo dos anos no canal do coordenador, registram esse período.</p>
+      <div class="years" aria-label="Ir para o ano">
+        <a href="#cg-2017">2017</a>
+        <a href="#cg-2014">2014</a>
+        <a href="#virtualbike">2013</a>
+        <a href="#automacao-domestica">2012</a>
+        <a href="#bluewave-tanks">2011</a>
+        <a href="#race-game">2010</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="videos">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow circ">Linha do tempo</p>
+        <h2>Sete vídeos, do mais recente ao mais antigo.</h2>
+        <p>Clique na miniatura para assistir aqui mesmo. Os vídeos são carregados do YouTube apenas quando você aperta o play.</p>
+      </div>
+
+      <div class="legacy">
+
+        <article class="legacy-item" id="cg-2017" style="--accent: var(--triangle)">
+          <div class="frame">
+            <button class="play" type="button" data-id="i1EfSrLK_k8" data-start="24" data-title="Computação Gráfica Católica 2017">
+              <img src="../media/legados/legado-1.jpg" alt="" width="640" height="480" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">15:39</span>
+              <span class="sr">Assistir: Computação Gráfica Católica 2017</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2017</span><span>Disciplina · Computação Gráfica</span></p>
+            <h3>Computação Gráfica Católica 2017</h3>
+            <p>Mostra dos trabalhos apresentados na disciplina de Computação Gráfica em 2017. Cada equipe de acadêmicos desenvolveu e demonstrou o próprio projeto ao final do semestre, e o vídeo reúne essas apresentações em sequência.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=i1EfSrLK_k8&amp;t=24s" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+        <article class="legacy-item" id="cg-2014" style="--accent: var(--triangle)">
+          <div class="frame">
+            <button class="play" type="button" data-id="sDk3jS1ZQFs" data-title="Computação Gráfica Católica 2014-2">
+              <img src="../media/legados/legado-2.jpg" alt="" width="960" height="720" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">12:44</span>
+              <span class="sr">Assistir: Computação Gráfica Católica 2014-2</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2014</span><span>Disciplina · Computação Gráfica</span></p>
+            <h3>Computação Gráfica Católica 2014-2</h3>
+            <p>Projetos desenvolvidos durante a disciplina de Computação Gráfica do curso de Sistemas de Informação da então Faculdade Católica do Tocantins, no segundo semestre de 2014. É o registro mais antigo das mostras da disciplina.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=sDk3jS1ZQFs" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+        <article class="legacy-item" id="virtualbike" style="--accent: var(--cyan)">
+          <div class="frame">
+            <button class="play" type="button" data-id="o2pSLK4zjh8" data-title="VirtualBike">
+              <img src="../media/legados/legado-3.jpg" alt="" width="640" height="480" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">7:24</span>
+              <span class="sr">Assistir: VirtualBike</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2013</span><span>Realidade virtual · Kinect</span></p>
+            <h3>VirtualBike</h3>
+            <p>Jogo de realidade virtual controlado por uma bicicleta de verdade. O sensor Kinect acompanha o jogador pedalando e transforma o movimento real em deslocamento dentro do cenário virtual.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=o2pSLK4zjh8" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+        <article class="legacy-item" id="automacao-domestica" style="--accent: var(--square)">
+          <div class="frame">
+            <button class="play" type="button" data-id="QoioMHCp9_4" data-title="Automação Doméstica">
+              <img src="../media/legados/legado-4.jpg" alt="" width="480" height="360" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">1:42</span>
+              <span class="sr">Assistir: Automação Doméstica</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2012</span><span>Simulador 3D · Dispositivos móveis</span></p>
+            <h3>Automação Doméstica</h3>
+            <p>Simulador 3D criado para demonstrar como a automação de uma casa pode ser comandada a partir de dispositivos móveis. A mesma ideia de usar o celular como controle, aplicada fora dos jogos.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=QoioMHCp9_4" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+        <article class="legacy-item" id="bluewave-tanks" style="--accent: var(--circle)">
+          <div class="frame">
+            <button class="play" type="button" data-id="g1mWQJyNAcM" data-title="BlueWave: arquitetura para jogos multiplayer controlados por celular">
+              <img src="../media/legados/legado-5.jpg" alt="" width="640" height="480" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">0:38</span>
+              <span class="sr">Assistir: BlueWave, arquitetura para jogos multiplayer controlados por celular</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2011</span><span>BlueWave · Multiplayer por Bluetooth</span></p>
+            <h3>BlueWave: jogos multiplayer controlados por celular</h3>
+            <p>Tanks, um jogo multiplayer por Bluetooth em que cada tanque é controlado por dois jogadores com celulares: um faz o papel de motorista e o outro, de artilheiro. Demonstração da arquitetura BlueWave, criada pelo grupo para conectar celulares a jogos rodando no computador.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=g1mWQJyNAcM" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+        <article class="legacy-item" id="race-game" style="--accent: var(--circle)">
+          <div class="frame">
+            <button class="play" type="button" data-id="a8F_yscaHMk" data-title="Jogo de corrida multiplayer com celular e desktop">
+              <img src="../media/legados/legado-6.jpg" alt="" width="480" height="360" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">0:46</span>
+              <span class="sr">Assistir: jogo de corrida multiplayer com celular e desktop</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2010</span><span>BlueWave · Corrida</span></p>
+            <h3>Jogo de corrida multiplayer com celular e desktop</h3>
+            <p>Jogo de corrida desenvolvido pelo NTI Games em que cada jogador controla o seu carro pelo celular enquanto a corrida roda no computador. Uma das primeiras aplicações da arquitetura BlueWave.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=a8F_yscaHMk" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+        <article class="legacy-item" id="mobile-control" style="--accent: var(--cross)">
+          <div class="frame">
+            <button class="play" type="button" data-id="oNW4zpHLxkI" data-title="Um jogo controlado por celular">
+              <img src="../media/legados/legado-7.jpg" alt="" width="480" height="360" loading="lazy">
+              <span class="icon" aria-hidden="true"></span>
+              <span class="dur" aria-hidden="true">0:44</span>
+              <span class="sr">Assistir: um jogo controlado por celular</span>
+            </button>
+          </div>
+          <div class="info">
+            <p class="meta"><span class="year">2010</span><span>Java · Bluetooth</span></p>
+            <h3>Um jogo controlado por celular</h3>
+            <p>A demonstração mais antiga da série: uma arquitetura em Java que dá acesso e controle a jogos de desktop por Bluetooth. A proposta era permitir jogos públicos em lugares como shoppings e aeroportos, em que qualquer pessoa entra na partida usando o próprio celular.</p>
+            <a class="yt" href="https://www.youtube.com/watch?v=oNW4zpHLxkI" target="_blank" rel="noopener">Abrir no YouTube →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="hoje">
+    <div class="wrap bridge">
+      <div class="section-head">
+        <p class="eyebrow cross">De lá para cá</p>
+        <h2>A mesma ideia, mais de quinze anos depois.</h2>
+        <p>O celular como controle, que aparece nos vídeos de 2010, continua no laboratório: hoje ele comanda os jogos 3D e os motores JGames2D, SGames2D e DGames2D levam o modelo de cena do grupo para desktop, Apple e Web.</p>
+      </div>
+      <div class="bridge-card">
+        <p class="eyebrow">Projetos atuais</p>
+        <p>Veja o que está saindo do laboratório agora e experimente o sample do DGames2D direto no navegador.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:0.8rem">
+          <a class="btn" href="../#projetos">Ver os projetos atuais</a>
+          <a class="btn" href="../flutter-games/">Jogar o sample Flutter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>NTI Games · Engenharia de Software · Centro Universitário Católica do Tocantins</span>
+    <span class="shapes" aria-hidden="true"><span class="shape sq"></span><span class="shape cross"></span><span class="shape tri"></span><span class="shape circ"></span></span>
+  </div>
+</footer>
+
+<script>
+  // Replaces the poster + play button with the YouTube player only when the user asks for it.
+  document.querySelectorAll('.play').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.dataset.id;
+      var start = btn.dataset.start ? '&start=' + encodeURIComponent(btn.dataset.start) : '';
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0' + start;
+      iframe.title = btn.dataset.title || 'Vídeo do YouTube';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      btn.replaceWith(iframe);
+    });
+  });
+</script>
+
+</body>
+</html>
