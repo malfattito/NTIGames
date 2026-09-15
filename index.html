@@ -196,6 +196,44 @@
   .project .caption p { color: var(--text-dim); font-size: 0.95rem; }
   .project .caption .meta { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 
+  /* Published papers */
+  .papers { display: grid; gap: 1rem; }
+  .paper {
+    display: grid;
+    grid-template-columns: 92px 1fr auto;
+    gap: 1.1rem;
+    align-items: start;
+    padding: 1.2rem 1.4rem;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  @media (max-width: 760px) { .paper { grid-template-columns: 1fr; gap: 0.6rem; } }
+  .paper .year { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--accent); line-height: 1.1; }
+  .paper .year span { display: block; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.15rem; }
+  .paper .body { display: grid; gap: 0.35rem; }
+  .paper h3 { font-size: 1.05rem; }
+  .paper .authors { color: var(--text-dim); font-size: 0.93rem; }
+  .paper .venue { color: var(--text-dim); font-size: 0.93rem; font-style: italic; }
+  .paper .links { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .paper .pdf {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.45rem 0.9rem; border-radius: 999px;
+    border: 1px solid var(--accent); color: var(--accent); background: transparent;
+    white-space: nowrap;
+  }
+  .paper .pdf:hover { text-decoration: none; background: var(--ink-3); }
+  .paper .ext {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.45rem 0.9rem; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--text-dim); background: transparent;
+    white-space: nowrap;
+  }
+  .paper .ext:hover { text-decoration: none; color: var(--text); background: var(--ink-3); }
+  .paper .nopdf { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+
   /* Legacy projects teaser */
   .legacy-teaser { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
   @media (max-width: 760px) { .legacy-teaser { grid-template-columns: 1fr; } }
@@ -257,6 +295,7 @@
         <li><a href="#tecnologias">Tecnologias</a></li>
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#legados">Projetos Legados</a></li>
+        <li><a href="#publicacoes">Publicações</a></li>
         <li><a href="#equipe">Equipe</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -456,6 +495,63 @@
       <div class="legacy-cta">
         <a class="btn primary" href="legados/">Ver todos os projetos legados</a>
         <span class="years">2010 · 2011 · 2012 · 2013 · 2014 · 2017</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="publicacoes">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow tri">Trabalhos publicados</p>
+        <h2>O que virou artigo.</h2>
+        <p>Parte do que o grupo desenvolve é publicada em congressos brasileiros de jogos, realidade virtual e informática. Os artigos abaixo descrevem as arquiteturas e os jogos que aparecem nos vídeos dos projetos legados.</p>
+      </div>
+      <div class="papers">
+        <article class="paper" id="p-uca" style="--accent: var(--triangle)">
+          <p class="year">2010<span>SBGames</span></p>
+          <div class="body">
+            <h3>Desenvolvimento de Jogos Educacionais Voltados ao Projeto UCA</h3>
+            <p class="authors">Silvano Maneck Malfatti, W. B. Guimarães, F. O. Simões, Jacques Duílio Brancher</p>
+            <p class="venue">IX Simpósio Brasileiro de Jogos e Entretenimento Digital (SBGames 2010), Florianópolis, SC.</p>
+          </div>
+          <p class="links"><a class="pdf" href="media/publicacoes/sbgames2010-jogos-educacionais-uca.pdf" target="_blank" rel="noopener">PDF</a><a class="ext" href="https://sbgames.org/papers/sbgames10/computing/short/Computing_short12.pdf" target="_blank" rel="noopener">Anais</a></p>
+        </article>
+        <article class="paper" id="p-mobile" style="--accent: var(--cross)">
+          <p class="year">2010<span>SBGames</span></p>
+          <div class="body">
+            <h3>Using Mobile Phones to Control Desktop Multiplayer Games</h3>
+            <p class="authors">Silvano Maneck Malfatti, Selan Rodrigues dos Santos, F. F. Santos</p>
+            <p class="venue">IX Simpósio Brasileiro de Jogos e Entretenimento Digital (SBGames 2010), Florianópolis, SC.</p>
+          </div>
+          <p class="links"><a class="pdf" href="media/publicacoes/sbgames2010-mobile-phones-desktop-multiplayer.pdf" target="_blank" rel="noopener">PDF</a><a class="ext" href="https://sbgames.org/papers/sbgames10/computing/full/full27.pdf" target="_blank" rel="noopener">Anais</a><a class="ext" href="https://doi.org/10.1109/SBGAMES.2010.32" target="_blank" rel="noopener">DOI</a></p>
+        </article>
+        <article class="paper" id="p-encoinfo" style="--accent: var(--square)">
+          <p class="year">2010<span>Encoinfo</span></p>
+          <div class="body">
+            <h3>Utilizando de Cenários Virtuais para a Simulação de Ambientes Domésticos Controlados por Celular</h3>
+            <p class="authors">Silvano Maneck Malfatti, Igor Yepes, Gabriel Lacerda dos Santos</p>
+            <p class="venue">Encontro de Estudantes de Informática do Estado do Tocantins (Encoinfo 2010), Palmas, TO. Versão em periódico na Revista Integralização Universitária, v. 1, n. 6, 2011, p. 33-40.</p>
+          </div>
+          <p class="links"><a class="pdf" href="media/publicacoes/riu2011-cenarios-virtuais-ambientes-domesticos.pdf" target="_blank" rel="noopener">PDF</a><a class="ext" href="https://revista.to.catolica.edu.br/index.php?journal=riu&amp;page=article&amp;op=view&amp;path%5B%5D=321" target="_blank" rel="noopener">Revista</a></p>
+        </article>
+        <article class="paper" id="p-virtualbike" style="--accent: var(--cyan)">
+          <p class="year">2014<span>SVR</span></p>
+          <div class="body">
+            <h3>VirtualBike: um exergame voltado a ciclistas</h3>
+            <p class="authors">Silvano Maneck Malfatti, I. Yepes</p>
+            <p class="venue">XVI Simpósio Brasileiro de Realidade Virtual e Aumentada (SVR 2014), Salvador, BA. Indexado no IEEE como <i>VirtualBike: An Exergame Designed to Cyclists</i>.</p>
+          </div>
+          <p class="links"><a class="pdf" href="media/publicacoes/svr2014-virtualbike-exergame-ciclistas.pdf" target="_blank" rel="noopener">PDF</a><a class="ext" href="https://doi.org/10.1109/SVR.2014.12" target="_blank" rel="noopener">IEEE Xplore</a><a class="ext" href="https://g1.globo.com/to/tocantins/noticia/2013/10/simulador-virtual-bike-alia-jogo-de-computador-e-exercicios-fisicos.html" target="_blank" rel="noopener">Na imprensa</a></p>
+        </article>
+        <article class="paper" id="p-geo" style="--accent: var(--circle)">
+          <p class="year">2016<span>SBGames</span></p>
+          <div class="body">
+            <h3>Metodologias baseadas no uso de jogos com geolocalização e dispositivos móveis para o desenvolvimento de novas práticas educacionais</h3>
+            <p class="authors">F. P. Pinto, Silvano Maneck Malfatti</p>
+            <p class="venue">SBGames 2016, São Paulo, SP.</p>
+          </div>
+          <p class="links"><a class="pdf" href="media/publicacoes/sbgames2016-geolocalizacao-praticas-educacionais.pdf" target="_blank" rel="noopener">PDF</a><a class="ext" href="https://www.sbgames.org/sbgames2016/downloads/anais/157640.pdf" target="_blank" rel="noopener">Anais</a></p>
+        </article>
       </div>
     </div>
   </section>
