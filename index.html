@@ -234,6 +234,24 @@
   .paper .ext:hover { text-decoration: none; color: var(--text); background: var(--ink-3); }
   .paper .nopdf { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
 
+  /* Press coverage */
+  .press-head { margin: 2.6rem 0 1.1rem; display: grid; gap: 0.5rem; }
+  .press-head h3 { font-size: 1.25rem; }
+  .press-head p { color: var(--text-dim); font-size: 0.98rem; max-width: 46rem; }
+  .press { display: grid; gap: 0.8rem; }
+  .press-item {
+    display: grid; grid-template-columns: 150px 1fr; gap: 1.1rem; align-items: baseline;
+    padding: 1rem 1.3rem;
+    background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  @media (max-width: 700px) { .press-item { grid-template-columns: 1fr; gap: 0.3rem; } }
+  .press-item .src { font-family: var(--display); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+  .press-item .src b { color: var(--cyan); font-weight: 600; }
+  .press-item h4 { font-family: var(--display); font-size: 1.02rem; font-weight: 600; margin: 0 0 0.2rem; }
+  .press-item h4 a { color: var(--text); }
+  .press-item h4 a:hover { color: var(--cyan); text-decoration: none; }
+  .press-item p { color: var(--text-dim); font-size: 0.95rem; }
+
   /* Legacy projects teaser */
   .legacy-teaser { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
   @media (max-width: 760px) { .legacy-teaser { grid-template-columns: 1fr; } }
@@ -551,6 +569,27 @@
             <p class="venue">Capítulo do livro <i>Digital games and learning</i>, 1. ed., organização de Antonella Carvalho de Oliveira, 2019, p. 1-10.</p>
           </div>
           <p class="links"><span class="nopdf">PDF não localizado</span></p>
+        </article>
+      </div>
+
+      <div class="press-head">
+        <h3>Na imprensa</h3>
+        <p>Projetos do grupo que saíram na imprensa local.</p>
+      </div>
+      <div class="press">
+        <article class="press-item">
+          <p class="src"><b>G1 Tocantins</b><br>17 out 2013</p>
+          <div>
+            <h4><a href="https://g1.globo.com/to/tocantins/noticia/2013/10/simulador-virtual-bike-alia-jogo-de-computador-e-exercicios-fisicos.html" target="_blank" rel="noopener">Simulador Virtual Bike alia jogo de computador e exercícios físicos</a></h4>
+            <p>Reportagem sobre o VirtualBike às vésperas da Semana Nacional de Ciência e Tecnologia, explicando o sensor na roda da bicicleta e o uso do Kinect.</p>
+          </div>
+        </article>
+        <article class="press-item">
+          <p class="src"><b>G1 Tocantins</b><br>16 jul 2014</p>
+          <div>
+            <h4><a href="https://g1.globo.com/to/tocantins/noticia/2014/07/estudante-cria-jogo-para-dispositivos-moveis-com-criatividade-e-esforco.html" target="_blank" rel="noopener">Estudante de Porto Nacional cria jogo para dispositivos móveis</a></h4>
+            <p>O acadêmico Rangel Ribeiro conta como criou o Flappy Ninja, jogo para Android levado ao Simpósio Brasileiro de Jogos e Entretenimento Digital daquele ano. Silvano Malfatti assinou o game design, Célia Morais os áudios e Bruno Castro a arte.</p>
+          </div>
         </article>
       </div>
     </div>
